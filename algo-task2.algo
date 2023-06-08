@@ -1,0 +1,66 @@
+ALGORITHM: find_distinct_sum
+
+VAR
+    set1, set2 : ARRAY_OF INTEGER[10];
+    sum : INTEGER;
+
+BEGIN
+    // WE INITIALIZE THE SUM TO 0
+    sum := 0;
+
+    // WE COMPARE THE ELEMENTS FROM SET1 TO THE ELEMENTS TO SET2
+    FOR i_1 FROM 0 TO set1.length - 1 STEP 1  DO
+
+        // SET ELEMENT PRESENCE TO NOT PER DEFAULT
+        present := FALSE;
+
+        // WE GET THE ELEMENT ITSELF FROM THE SET1
+        element_1 := set1[i_1];
+
+        // WE COMPARE THE ELEMENT FROM SET2 TO THE ELEMENT FROM SET1
+        FOR i_2 FROM 0 TO set2.length - 1 STEP 1  DO
+
+            // WE GET THE ELEMENT FROM THE SET2
+            element_2 := set2[i_2];
+
+            // CHECK FOR PRESENCE AND BREAK THE LOOP IF PRESENT
+            IF (element_1 = element_2) THEN
+                present := TRUE;
+                BREAK;
+            END_IF
+
+        END_FOR
+
+        // IF NOT PRESENT, SUM IT UP
+        IF (present = FALSE) THEN
+            sum := sum + element_1;
+        END_IF
+
+    END_FOR
+
+    // THE OTHER WAY STARTING WITH SET2
+    FOR i_2 FROM 0 TO set2.length - 1 STEP 1  DO
+        present := FALSE;
+        
+        element_2 := set2[i_2];
+
+        FOR i_1 FROM 0 TO set1.length - 1 STEP 1  DO
+
+            element_1 := set1[i_1];
+
+            IF (element_2 = element_1) THEN
+                present := TRUE;
+                BREAK;
+            END_IF
+        END_FOR
+
+        IF (present = FALSE) THEN
+            sum := sum + element_2;
+        END_IF
+
+    END_FOR
+
+    // SENDING THE SUM
+    write("The sum is : ", sum);
+
+END
